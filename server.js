@@ -10,9 +10,12 @@ app.use("/", express.static(__dirname + "/public"));
 io.on("connection", (socket) => {
   console.log("User is connected", socket.id);
 
-  setInterval(() => {
-    socket.emit("join_server");
-  }, 2000);
+  socket.on("send-msg",(data)=>{
+    console.log(data);
+    io.emit("rsv-msg",data)
+  });
+
+ 
 });
 
 server.listen(4000, () => {
